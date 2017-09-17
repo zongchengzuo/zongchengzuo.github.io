@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,计算机视觉," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="今天，图像和视频无处不在。在线照片分享网站和社交网络上的图像有数十亿之多。几乎对于任意可能的查询图像，搜索引擎都会给用户返回检索的图像。实际上，几乎所有手机和计算机都有内置的摄像头，所以在人们的设备中，有几个GB 的图像和视频是一件很寻常的事。">
+<meta name="keywords" content="Python,计算机视觉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前言">
+<meta property="og:url" content="http://yoursite.com/2017/09/13/前言/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天，图像和视频无处不在。在线照片分享网站和社交网络上的图像有数十亿之多。几乎对于任意可能的查询图像，搜索引擎都会给用户返回检索的图像。实际上，几乎所有手机和计算机都有内置的摄像头，所以在人们的设备中，有几个GB 的图像和视频是一件很寻常的事。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-09-17T09:58:18.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前言">
+<meta name="twitter:description" content="今天，图像和视频无处不在。在线照片分享网站和社交网络上的图像有数十亿之多。几乎对于任意可能的查询图像，搜索引擎都会给用户返回检索的图像。实际上，几乎所有手机和计算机都有内置的摄像头，所以在人们的设备中，有几个GB 的图像和视频是一件很寻常的事。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/13/前言/"/>
+
+
+
+
+
+  <title>前言 | Hexo</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/13/前言/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zongcheng zuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前言</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-13T10:11:20+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python计算机视觉手册/" itemprop="url" rel="index">
+                    <span itemprop="name">Python计算机视觉手册</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天，图像和视频无处不在。在线照片分享网站和社交网络上的图像有数十亿之多。几乎对于任意可能的查询图像，搜索引擎都会给用户返回检索的图像。实际上，几乎所有手机和计算机都有内置的摄像头，所以在人们的设备中，有几个GB 的图像和视频是一件很寻常的事。<br><a id="more"></a><br>计算机视觉就是用计算机编程，并设计算法来理解在这些图像中有什么。计算机视觉的有力应用有图像搜索、机器人导航、医学图像分析、照片管理等。</p>
+<p>本书旨在为计算机视觉实战提供一个简单的切入点，让学生、研究者和爱好者充分理解其基础理论和算法。本书中的编程语言是 Python，Python 自带了很多可以免费获取的强大而便捷的图像处理、数学计算和数据挖掘模块，可以免费获取。</p>
+<p>写作本书的时候，我遵循了以下原则。</p>
+<blockquote>
+<p><em>鼓励探究式学习，让读者在阅读本书的时候，在计算机上跟着书中示例进行练习。
+</em>推广和使用免费且开源的软件，设立较低的学习门槛。显然，我们选择了 Python。<br><em>保持内容完整性和独立性。本书没有介绍计算机视觉的全部内容，而是完整呈现并解释所有代码。 你应该能够重现这些示例，并可以直接在它们之上构建其他应用。
+</em>内容追求广泛而非详细，且相对于理论更注重鼓舞和激励。</p>
+</blockquote>
+<p>总之，如果你对计算机视觉编程感兴趣，希望它能给你带来启发。</p>
+<p>###基础知识和概述</p>
+<p>读者须知</p>
+<blockquote>
+<p>·基本的编程经验。你需要会使用编辑器，能够运行脚本，知道如何构建代码以及基本数据类型。熟悉 Python，或诸如 Ruby、Matlab 等其他脚本语言，这也会对你理解本书有所帮助。<br>·数学基础。如果你知道矩阵、向量、矩阵乘法、标准数学函数以及导数和梯度等概念，这对于充分利用其中示例非常有益。对于一些较高级的数学例子，你可以轻松跳过。</p>
+</blockquote>
+<p>###本书内容</p>
+<blockquote>
+<p>·用 Python 对图像进行实战编程。<br>·现实世界中各种应用背后的计算机视觉技术。<br>·一些基本算法，以及如何实现并应用这些算法。</p>
+</blockquote>
+<p>本书中的代码示例会向你展示物体识别、基于内容的图像检索、图像搜索、光学字符识别、光流跟踪、三维重建、立体成像、增强现实、姿态估计、全景创建、图像分割、降噪、图像分组等内容。</p>
+<p>###章节概览<br>第一章    介绍用来处理图像的基本工具及本书用到的核心 Python 模块，同时涵盖了很多贯穿全书的基础示例。<br>第二章    讲解检测图像兴趣点的方法，以及怎样使用它们在图像间寻找相应点和区域。<br>第三章    描述图像间基本的变换及其计算方法。涵盖从图像扭曲到创建全景图像的示例。<br>第四章    介绍如何对照相机建模、生成从三维空间到图像特征的图像投影，并估计照相机视点。<br>第五章    讲解如何对具有相同场景、多视图几何基本面的图像进行处理，以及怎样从图像计算三维重建。<br>第六章    介绍一些聚类方法，并展示如何基于相似性或内容对图像进行分组和组织。<br>第七章    展示如何建立有效的图像检索技术，以便能够存储图像的表示，并基于图像的视觉内容搜索图像。<br>第八章    描述了图像内容分类算法，以及怎样使用它们识别图像中的物体。<br>第九章    介绍了通过聚类、用户交互或图像模型，将图像分割成有意义区域的不同技术。<br>第十章    展示怎样使用常用的 OpenCV 计算机视觉库 Python 接口，以及如何处理视频及摄像头的输入。</p>
+<p>###计算机视觉简介<br>计算机视觉是一门对图像中信息进行自动提取的学科。信息的内容相当广泛，包括三维模型、照相机位置、目标检测与识别，以及图像内容的分组与搜索等。本书中，我们使用广义的计算机视觉概念，包括图像扭曲、降噪和增强现实等。</p>
+<p>计算机视觉有时试图模拟人类视觉，有时使用数据和统计方法，而有时几何是解决问题的关键。在本书中，我们试图对此进行全面介绍。</p>
+<p>实用计算机视觉混合了编程、建模和数学技巧，有时很难掌握。我本着“力求简单，又不影响理解”的精神，有意用最少的理论来展示这些内容。书中对于数学知识的介绍是为了帮助读者理解算法，有些章（主要是第 4 章和第 5 章）无法避免地涉及很多数学理论。只要读者愿意，可以跳过这些数学理论，直接使用示例代码。</p>
+<p>###排版约定<br>代码将会展示在一个高亮显示的特定方框内（在电子版本）并像如下这样：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># some points</span></div><div class="line">x=[<span class="number">100</span>,<span class="number">100</span>,<span class="number">400</span>,<span class="number">400</span>]</div><div class="line">y=[<span class="number">200</span>,<span class="number">500</span>,<span class="number">200</span>,<span class="number">500</span>]</div><div class="line"></div><div class="line"><span class="comment"># plot the points</span></div><div class="line">plot(x,y)</div></pre></td></tr></table></figure></p>
+<p>本文中的字体约定如下：<br>Italic字体用于定义、文件名和变量名。<br>Typewriter字体用于函数和Python模块。<br>Small constant width字体用于控制台打印和调用结果以及API。<br>Hyperlink字体用于URL（电子版中可点击）。<br>Plain text字体用于其他的一切。<br>数学公式将在同一行像这样展示$$f(x)=W^T X+b$$或者单独居中像这样显示<br>$$f(x)=∑_iw_i x_i+b$$,<br>只有需要参考的时候我们才对公式进行编号。<br>在介绍数学知识的部分，标量使用小写字母（s,r,λ,θ…），矩阵（包括图像数组 I）使用大写加粗（A, V, H,…），向量则小写加粗（t, c,…），二维（图像）和三维中的点分别用 x=[x, y] 和 X[X,Y,Z] 表示。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/计算机视觉/" rel="tag"># 计算机视觉</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/11/序/" rel="next" title="序">
+                <i class="fa fa-chevron-left"></i> 序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/16/第一章-图像操作与处理/" rel="prev" title="第一章 基本图像操作和处理">
+                第一章 基本图像操作和处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.gif"
+              alt="zongcheng zuo" />
+          
+            <p class="site-author-name" itemprop="name">zongcheng zuo</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zongchengzuo" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zongchengzuo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zongcheng zuo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="https://hexo.io">Hexo</a></div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

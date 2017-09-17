@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PIL,图像处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="第一章 图像操作和处理本章讲解图像操作和处理的基础知识，将通过大量示例介绍处理图像所需的 Python 工具包，并介绍用于读取图像、图像转换和缩放、计算导数、画图和保存结果等的基本工具。这些工具的使用将贯穿本书的剩余章节。">
+<meta name="keywords" content="PIL,图像处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一章 基本图像操作和处理">
+<meta property="og:url" content="http://yoursite.com/2017/09/16/第一章-图像操作与处理/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一章 图像操作和处理本章讲解图像操作和处理的基础知识，将通过大量示例介绍处理图像所需的 Python 工具包，并介绍用于读取图像、图像转换和缩放、计算导数、画图和保存结果等的基本工具。这些工具的使用将贯穿本书的剩余章节。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-09-17T09:58:36.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一章 基本图像操作和处理">
+<meta name="twitter:description" content="第一章 图像操作和处理本章讲解图像操作和处理的基础知识，将通过大量示例介绍处理图像所需的 Python 工具包，并介绍用于读取图像、图像转换和缩放、计算导数、画图和保存结果等的基本工具。这些工具的使用将贯穿本书的剩余章节。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/16/第一章-图像操作与处理/"/>
+
+
+
+
+
+  <title>第一章 基本图像操作和处理 | Hexo</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/第一章-图像操作与处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zongcheng zuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第一章 基本图像操作和处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-16T15:21:30+08:00">
+                2017-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python计算机视觉手册/" itemprop="url" rel="index">
+                    <span itemprop="name">Python计算机视觉手册</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第一章-图像操作和处理"><a href="#第一章-图像操作和处理" class="headerlink" title="第一章 图像操作和处理"></a><strong>第一章 图像操作和处理</strong></h3><p>本章讲解图像操作和处理的基础知识，将通过大量示例介绍处理图像所需的 Python 工具包，并介绍用于读取图像、图像转换和缩放、计算导数、画图和保存结果等的基本工具。这些工具的使用将贯穿本书的剩余章节。<br><a id="more"></a></p>
+<h4 id="1-1-PIL"><a href="#1-1-PIL" class="headerlink" title="1.1 PIL"></a><strong>1.1 PIL</strong></h4><p>PIL（Python Imaging Library Python）提供了通用的图像处理功能，以及大量有用的基本图像操作，比如图像缩放、裁剪、旋转、颜色转换等。PIL 是免费的，可以从 <a href="http://www.pythonware.com/products/pil/" target="_blank" rel="external">http://www.pythonware.com/products/pil/</a> 下载。利用 PIL 中的函数，我们可以从大多数图像格式的文件中读取数据，然后写入最常见的图像格式文件中。PIL 中最重要的模块为 Image。要读取一幅图像，可以使用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line">pil_im = Image.open(’empire.jpg’)</div></pre></td></tr></table></figure></p>
+<p>上述代码的返回值 pil_im 是一个 PIL 图像对象。图像的颜色转换可以使用 convert() 方法来实现。要读取一幅图像，并将其转换成灰度图像，只需要加上 convert(‘L’)，如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pil_im = Image.open(’empire.jpg’).convert(’L’)</div></pre></td></tr></table></figure></p>
+<p>这里有一些示例取自于PIL官方文档。这些例子的输出如图1.1所示。在 PIL 文档中有一些例子，参见 <a href="http://www.pythonware.com/library/pil/handbook/index.htm。" target="_blank" rel="external">http://www.pythonware.com/library/pil/handbook/index.htm。</a> 这些例子的输出结果如图 1-1 所示。</p>
+<h5 id="1-1-1-转换图像格式"><a href="#1-1-1-转换图像格式" class="headerlink" title="1.1.1  转换图像格式"></a><strong>1.1.1  转换图像格式</strong></h5><p>通过save()方法，PIL可以将图像保存成多种格式的文件。下面的例子从文件名列表(filelist)中读取所有的图像文件，并转换成JPEG格式：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">for</span> infile <span class="keyword">in</span> filelist:</div><div class="line">    outfile = os.path.splitext(infile)[<span class="number">0</span>] + <span class="string">".jpg"</span></div><div class="line">    <span class="keyword">if</span> infile != outfile:</div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            Image.open(infile).save(outfile)</div><div class="line">        <span class="keyword">except</span> IOError:</div><div class="line">            <span class="keyword">print</span> <span class="string">"cannot convert"</span>, infile</div></pre></td></tr></table></figure></p>
+<p>PIL的 open() 函数用于创建 PIL 图像对象，save() 方法用于保存图像到具有指定文件名的文件。除了后缀变为“.jpg”，上述代码的新文件名和原文件名相同。PIL 是个足够智能的类库，可以根据文件扩展名来判定图像的格式。PIL 函数会进行简单的检查，如果文件不是 JPEG 格式，会自动将其转换成 JPEG 格式；如果转换失败，它会在控制台输出一条报告失败的消息。<br>本书会处理大量图像列表。下面将创建一个包含文件夹中所有图像文件的文件名列表。首先新建一个文件，命名为 imtools.py，来存储一些经常使用的图像操作，然后将下面的函数添加进去：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_imlist</span><span class="params">(path)</span>:</span></div><div class="line">    <span class="string">""" Returns a list of filenames for all jpg images in a directory. """</span></div><div class="line">    <span class="keyword">return</span> [os.path.join(path,f) <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(path) <span class="keyword">if</span> f.endswith(’.jpg’)]</div></pre></td></tr></table></figure></p>
+<p>现在，回到PIL。</p>
+<h5 id="1-1-2-创建缩略图"><a href="#1-1-2-创建缩略图" class="headerlink" title="1.1.2  创建缩略图"></a><strong>1.1.2  创建缩略图</strong></h5><p>使用 PIL 可以很方便地创建图像的缩略图。thumbnail() 方法接受一个元组参数（该参数指定生成缩略图的大小），然后将图像转换成符合元组参数指定大小的缩略图。例如，创建最长边为 128 像素的缩略图，可以使用下列命令：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pil_im.thumbnail((<span class="number">128</span>,<span class="number">128</span>))</div></pre></td></tr></table></figure></p>
+<h5 id="1-1-3-复制和粘贴区域"><a href="#1-1-3-复制和粘贴区域" class="headerlink" title="1.1.3  复制和粘贴区域"></a><strong>1.1.3  复制和粘贴区域</strong></h5><p>从一副图像中复制一个区域使用crop()方法来实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box = (<span class="number">100</span>,<span class="number">100</span>,<span class="number">400</span>,<span class="number">400</span>)</div><div class="line">region = pil_im.crop(box)</div></pre></td></tr></table></figure></p>
+<p>该区域使用四元组来指定。四元组的坐标依次是（左，上，右，下）。PIL 中指定坐标系的左上角坐标为（0，0）。我们可以旋转上面代码中获取的区域，然后使用 paste() 方法将该区域放回去，具体实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">region = region.transpose(Image.ROTATE_180)</div><div class="line">pil_im.paste(region,box)</div></pre></td></tr></table></figure></p>
+<h5 id="1-1-4-调整尺寸和旋转"><a href="#1-1-4-调整尺寸和旋转" class="headerlink" title="1.1.4  调整尺寸和旋转"></a><strong>1.1.4  调整尺寸和旋转</strong></h5><p>调要调整一幅图像的尺寸，我们可以调用 resize() 方法。该方法的参数是一个元组，用来指定新图像的大小：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">out = pil_im.resize((<span class="number">128</span>,<span class="number">128</span>))</div></pre></td></tr></table></figure></p>
+<p>要旋转一幅图像，可以使用逆时针方式表示旋转角度，然后调用 rotate() 方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">out = pil_im.rotate(<span class="number">45</span>)</div></pre></td></tr></table></figure></p>
+<p>上述例子的输出结果如图 1-1 所示。最左端是原始图像，然后是灰度图像、粘贴有旋转后裁剪图像的原始图像，最后是缩略图。</p>
+<h4 id="1-2-Matplotlib"><a href="#1-2-Matplotlib" class="headerlink" title="1.2  Matplotlib"></a><strong>1.2  Matplotlib</strong></h4><p>我们处理数学运算、绘制图表，或者在图像上绘制点、直线和曲线时，Matplotlib 是个很好的类库，具有比 PIL 更强大的绘图功能。Matplotlib 可以绘制出高质量的图表，就像本书中的许多插图一样。Matplotlib 中的 PyLab 接口包含很多方便用户创建图像的函数。Matplotlib 是开源工具，可以从 <a href="http://matplotlib.sourceforge.net/" target="_blank" rel="external">http://matplotlib.sourceforge.net/</a> 免费下载。该链接中包含非常详尽的使用说明和教程。下面的例子展示了本书中需要使用的大部分函数。</p>
+<h5 id="1-2-1-绘制图像、点和线"><a href="#1-2-1-绘制图像、点和线" class="headerlink" title="1.2.1  绘制图像、点和线"></a><strong>1.2.1  绘制图像、点和线</strong></h5><p>尽管 Matplotlib 可以绘制出较好的条形图、饼状图、散点图等，但是对于大多数计算机视觉应用来说，仅仅需要用到几个绘图命令。最重要的是，我们想用点和线来表示一些事物，比如兴趣点、对应点以及检测出的物体。下面是用几个点和一条线绘制图像的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line"><span class="comment"># read image to array</span></div><div class="line">im = array(Image.open(’empire.jpg’))</div><div class="line"><span class="comment"># plot the image</span></div><div class="line">imshow(im)</div><div class="line"><span class="comment"># some points</span></div><div class="line">x = [<span class="number">100</span>,<span class="number">100</span>,<span class="number">400</span>,<span class="number">400</span>]</div><div class="line">y = [<span class="number">200</span>,<span class="number">500</span>,<span class="number">200</span>,<span class="number">500</span>]</div><div class="line"><span class="comment"># plot the points with red star-markers</span></div><div class="line">plot(x,y,’r*’)</div><div class="line"><span class="comment"># line plot connecting the first two points</span></div><div class="line">plot(x[:<span class="number">2</span>],y[:<span class="number">2</span>])</div><div class="line"><span class="comment"># add title and show the plot</span></div><div class="line">title(’Plotting: <span class="string">"empire.jpg"</span>’)</div><div class="line">show()</div></pre></td></tr></table></figure></p>
+<p>上面的代码首先绘制出原始图像，然后在 x 和 y 列表中给定点的 x 坐标和 y 坐标上绘制出红色星状标记点，最后在两个列表表示的前两个点之间绘制一条线段（默认为蓝色）。该例子的绘制结果如图 1-2 所示。show() 命令首先打开图形用户界面（GUI），然后新建一个图像窗口。该图形用户界面会循环阻断脚本，然后暂停，直到最后一个图像窗口关闭。在每个脚本里，你只能调用一次 show() 命令，而且通常是在脚本的结尾调用。注意，在 PyLab 库中，我们约定图像的左上角为坐标原点。图像的坐标轴是一个很有用的调试工具；但是，如果你想绘制出较美观的图像，加上下列命令可以使坐标轴不显示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">axis(’off’)</div></pre></td></tr></table></figure></p>
+<p>上面的命令将绘制出如图 1-2 右边所示的图像。<br>在绘图时，有很多选项可以控制图像的颜色和样式。最常用的一些短命令如下所示。使用方法见下面的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">plot(x,y)		 	<span class="comment"># default blue solid line</span></div><div class="line">plot(x,y,’r*’) 		<span class="comment"># red star-markers</span></div><div class="line">plot(x,y,’go-’)	 	<span class="comment"># green line with circle-markers</span></div><div class="line">plot(x,y,’ks:’) 	<span class="comment"># black dotted line with square-markers</span></div></pre></td></tr></table></figure></p>
+<h5 id="1-2-2-图像轮廓和直方图"><a href="#1-2-2-图像轮廓和直方图" class="headerlink" title="1.2.2  图像轮廓和直方图"></a><strong>1.2.2  图像轮廓和直方图</strong></h5><p>下面来看两个特别的绘图示例：图像的轮廓和直方图。绘制图像的轮廓（或者其他二维函数的等轮廓线）在工作中非常有用。因为绘制轮廓需要对每个坐标 [x, y] 的像素值施加同一个阈值，所以首先需要将图像灰度化：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line"><span class="comment"># read image to array</span></div><div class="line">im = array(Image.open(’images/empire.jpg’).convert(’L’))</div><div class="line"><span class="comment"># create a new figure</span></div><div class="line">figure()</div><div class="line"><span class="comment"># don’t use colors</span></div><div class="line">gray()</div><div class="line"><span class="comment"># show contours with origin upper left corner</span></div><div class="line">contour(im, origin=’image’)</div><div class="line">axis(’equal’)</div><div class="line">axis(’off’)</div></pre></td></tr></table></figure></p>
+<p>像之前的例子一样，这里用 PIL 的 convert() 方法将图像转换成灰度图像。<br>图像的直方图用来表征该图像像素值的分布情况。用一定数目的小区间（bin）来指定表征像素值的范围，每个小区间会得到落入该小区间表示范围的像素数目。该（灰度）图像的直方图可以使用 hist() 函数绘制：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">figure()</div><div class="line">hist(im.flatten(),<span class="number">128</span>)</div><div class="line">show()</div></pre></td></tr></table></figure></p>
+<p>hist() 函数的第二个参数指定小区间的数目。需要注意的是，因为 hist() 只接受一维数组作为输入，所以我们在绘制图像直方图之前，必须先对图像进行压平处理。flatten() 方法将任意数组按照行优先准则转换成一维数组。图 1-3 为等轮廓线和直方图图像。</p>
+<h5 id="1-2-3-交互式标记"><a href="#1-2-3-交互式标记" class="headerlink" title="1.2.3  交互式标记"></a><strong>1.2.3  交互式标记</strong></h5><p>有时用户需要和某些应用交互，例如在一幅图像中标记一些点，或者标注一些训练数据。PyLab 库中的 ginput() 函数就可以实现交互式标注。下面是一个简短的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line">im = array(Image.open(’empire.jpg’))</div><div class="line">imshow(im)</div><div class="line"><span class="keyword">print</span> ’Please click <span class="number">3</span> points’</div><div class="line">x = ginput(<span class="number">3</span>)</div><div class="line"><span class="keyword">print</span> ’you clicked:’,x</div><div class="line">show()</div></pre></td></tr></table></figure></p>
+<p>上面的脚本首先绘制一幅图像，然后等待用户在绘图窗口的图像区域点击三次。程序将这些点击的坐标 [x, y] 自动保存在 x 列表里。</p>
+<h4 id="1-3-NumPy"><a href="#1-3-NumPy" class="headerlink" title="1.3  NumPy"></a><strong>1.3  NumPy</strong></h4><p>NumPy（<a href="http://www.scipy.org/NumPy/）是非常有名的" target="_blank" rel="external">http://www.scipy.org/NumPy/）是非常有名的</a> Python 科学计算工具包，其中包含了大量有用的思想，比如数组对象（用来表示向量、矩阵、图像等）以及线性代数函数。NumPy 中的数组对象几乎贯穿用于本书的所有例子中。数组对象可以帮助你实现数组中重要的操作，比如矩阵乘积、转置、解方程、向量乘积和归一化，这为图像变形、对变化进行建模、图像分类、图像聚类等提供了基础。<br>NumPy 可以从 <a href="http://www.scipy.org/Download" target="_blank" rel="external">http://www.scipy.org/Download</a> 免费下载，在线说明文档（<a href="http://docs.scipy.org/doc/numpy/）包含了你可能遇到的大多数问题的答案。关于" target="_blank" rel="external">http://docs.scipy.org/doc/numpy/）包含了你可能遇到的大多数问题的答案。关于</a> NumPy 的更多内容，请参考开源书籍 [24]。</p>
+<h5 id="1-3-1-图像数组表示"><a href="#1-3-1-图像数组表示" class="headerlink" title="1.3.1  图像数组表示"></a><strong>1.3.1  图像数组表示</strong></h5><p>在先前的例子中，当载入图像时，我们通过调用 array() 方法将图像转换成 NumPy 的数组对象，但当时并没有进行详细介绍。NumPy 中的数组对象是多维的，可以用来表示向量、矩阵和图像。一个数组对象很像一个列表（或者是列表的列表），但是数组中所有的元素必须具有相同的数据类型。除非创建数组对象时指定数据类型，否则数据类型会按照数据的类型自动确定。<br>对于图像数据，下面的例子阐述了这一点：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">im = array(Image.open(’empire.jpg’))</div><div class="line"><span class="keyword">print</span> im.shape, im.dtype</div><div class="line">im = array(Image.open(’empire.jpg’).convert(’L’),’f’)</div><div class="line"><span class="keyword">print</span> im.shape, im.dtype</div></pre></td></tr></table></figure></p>
+<p>控制台输出结果如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(<span class="number">800</span>, <span class="number">569</span>, <span class="number">3</span>) uint8</div><div class="line">(<span class="number">800</span>, <span class="number">569</span>) float32</div></pre></td></tr></table></figure></p>
+<p>每行的第一个元组表示图像数组的大小（行、列、颜色通道），紧接着的字符串表示数组元素的数据类型。因为图像通常被编码成无符号八位整数（uint8），所以在第一种情况下，载入图像并将其转换到数组中，数组的数据类型为“uint8”。在第二种情况下，对图像进行灰度化处理，并且在创建数组时使用额外的参数“f”；该参数将数据类型转换为浮点型。关于更多数据类型选项，可以参考图书 [24]。注意，由于灰度图像没有颜色信息，所以在形状元组中，它只有两个数值。<br>数组中的元素可以使用下标访问。位于坐标 i,j以及颜色通道 k 的像素值可以像下面这样访问：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">value = im[i,j,k]</div></pre></td></tr></table></figure></p>
+<p>使用数组切片可以访问多个数组元素。切片方式返回的是以指定间隔下标访问该数组的元素值。下面是有关灰度图像的一些例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">im[i,:] = im[j,:] 		<span class="comment"># set the values of row i with values from row j</span></div><div class="line">im[:,i] = <span class="number">100</span> 			<span class="comment"># set all values in column i to 100</span></div><div class="line">im[:<span class="number">100</span>,:<span class="number">50</span>].sum() 	    <span class="comment"># the sum of the values of the first 100 rows and 50 columns</span></div><div class="line">im[<span class="number">50</span>:<span class="number">100</span>,<span class="number">50</span>:<span class="number">100</span>] 	    <span class="comment"># rows 50-100, columns 50-100 (100th not included)</span></div><div class="line">im[i].mean() 			<span class="comment"># average of row i</span></div><div class="line">im[:,<span class="number">-1</span>] 				<span class="comment"># last column</span></div><div class="line">im[<span class="number">-2</span>,:] (<span class="keyword">or</span> im[<span class="number">-2</span>]) 	<span class="comment"># second to last row</span></div></pre></td></tr></table></figure></p>
+<p>注意，示例仅仅使用一个下标访问数组。如果仅使用一个下标，则该下标为行下标。注意，在最后几个例子中，负数切片表示从最后一个元素逆向计数。我们将会频繁地使用切片技术访问像素值，这也是一个很重要的思想。<br>我们有很多操作和方法来处理数组对象。本书将在使用到的地方逐一介绍。你可以查阅在线文档或者开源图书 [24] 获取更多信息。</p>
+<h5 id="1-3-2-灰度变换"><a href="#1-3-2-灰度变换" class="headerlink" title="1.3.2  灰度变换"></a><strong>1.3.2  灰度变换</strong></h5><p>将图像读入 NumPy 数组对象后，我们可以对它们执行任意数学操作。一个简单的例子就是图像的灰度变换。考虑任意函数 f，它将 0…255 区间（或者 0…1 区间）映射到自身（意思是说，输出区间的范围和输入区间的范围相同）。下面是关于灰度变换的一些例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line">im = array(Image.open(’empire.jpg’).convert(’L’))</div><div class="line">im2 = <span class="number">255</span> - im <span class="comment">#invert image</span></div><div class="line">im3 = (<span class="number">100.0</span>/<span class="number">255</span>) * im + <span class="number">100</span> <span class="comment">#clamp to interval 100...200</span></div><div class="line">im4 = <span class="number">255.0</span> * (im/<span class="number">255.0</span>)**<span class="number">2</span> <span class="comment">#squared</span></div></pre></td></tr></table></figure></p>
+<p>第一个例子将灰度图像进行反相处理；第二个例子将图像的像素值变换到 100…200 区间；第三个例子对图像使用二次函数变换，使较暗的像素值变得更小。图 1-4 为所使用的变换函数图像。图 1-5 是输出的图像结果。你可以使用下面的命令查看图像中的最小和最大像素值：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> int(im.min()), int(im.max())</div></pre></td></tr></table></figure></p>
+<p>如果试着对上面例子查看最小值和最大值，可以得到下面的输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2 255</div><div class="line">0 253</div><div class="line">100 200</div><div class="line">0 255</div></pre></td></tr></table></figure></p>
+<p>array() 变换的相反操作可以使用 PIL 的 fromarray() 函数完成：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pil_im = Image.fromarray(im)</div></pre></td></tr></table></figure></p>
+<p>如果你通过一些操作将“uint8”数据类型转换为其他数据类型，比如之前例子中的 im3 或者 im4，那么在创建 PIL 图像之前，需要将数据类型转换回来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pil_im = Image.fromarray(uint8(im))</div></pre></td></tr></table></figure></p>
+<p>如果你并不十分确定输入数据的类型，安全起见，应该先转换回来。注意，NumPy 总是将数组数据类型转换成能够表示数据的“最低”数据类型。对浮点数做乘积或除法操作会使整数类型的数组变成浮点类型。</p>
+<h5 id="1-3-3-图像尺寸"><a href="#1-3-3-图像尺寸" class="headerlink" title="1.3.3  图像尺寸"></a><strong>1.3.3  图像尺寸</strong></h5><p>NumPy 的数组对象是我们处理图像和数据的主要工具。想要对图像进行缩放处理没有现成简单的方法。我们可以使用之前 PIL 对图像对象转换的操作，写一个简单的用于图像缩放的函数。把下面的函数添加到 imtool.py 文件里：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">imresize</span><span class="params">(im,sz)</span>:</span></div><div class="line">    <span class="string">""" Resize an image array using PIL. """</span></div><div class="line">    pil_im = Image.fromarray(uint8(im))</div><div class="line">    <span class="keyword">return</span> array(pil_im.resize(sz))</div></pre></td></tr></table></figure></p>
+<p>我们将会在接下来的内容中使用这个函数。</p>
+<h5 id="1-3-4-直方图均衡化"><a href="#1-3-4-直方图均衡化" class="headerlink" title="1.3.4  直方图均衡化"></a><strong>1.3.4  直方图均衡化</strong></h5><p>图像灰度变换中一个非常有用的例子就是直方图均衡化。直方图均衡化是指将一幅图像的灰度直方图变平，使变换后的图像中每个灰度值的分布概率都相同。在对图像做进一步处理之前，直方图均衡化通常是对图像灰度值进行归一化的一个非常好的方法，并且可以增强图像的对比度。<br>在这种情况下，直方图均衡化的变换函数是图像中像素值的累积分布函数（cumulative distribution function，简写为 cdf，将像素值的范围映射到目标范围的归一化操作）。<br>下面的函数是直方图均衡化的具体实现。将这个函数添加到 imtool.py 里：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">histeq</span><span class="params">(im,nbr_bins=<span class="number">256</span>)</span>:</span></div><div class="line">    <span class="string">""" Histogram equalization of a grayscale image. """</span></div><div class="line">    <span class="comment"># get image histogram</span></div><div class="line">    imhist,bins = histogram(im.flatten(),nbr_bins,normed=<span class="keyword">True</span>)</div><div class="line">    cdf = imhist.cumsum() <span class="comment"># cumulative distribution function</span></div><div class="line">    cdf = <span class="number">255</span> * cdf / cdf[<span class="number">-1</span>] <span class="comment"># normalize</span></div><div class="line">    <span class="comment"># use linear interpolation of cdf to find new pixel values</span></div><div class="line">    im2 = interp(im.flatten(),bins[:<span class="number">-1</span>],cdf)</div><div class="line">    <span class="keyword">return</span> im2.reshape(im.shape), cdf</div></pre></td></tr></table></figure></p>
+<p>该函数有两个输入参数，一个是灰度图像，一个是直方图中使用小区间的数目。函数返回直方图均衡化后的图像，以及用来做像素值映射的累积分布函数。注意，函数中使用到累积分布函数的最后一个元素（下标为 -1），目的是将其归一化到 0…1 范围。你可以像下面这样使用该函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"></div><div class="line">im = array(Image.open(’AquaTermi_lowcontrast.jpg’).convert(’L’))</div><div class="line">im2,cdf = imtools.histeq(im)</div></pre></td></tr></table></figure></p>
+<p>图 1-6 和图 1-7 为上面直方图均衡化例子的结果。上面一行显示的分别是直方图均衡化之前和之后的灰度直方图，以及累积概率分布函数映射图像。可以看到，直方图均衡化后图像的对比度增强了，原先图像灰色区域的细节变得清晰。</p>
+<h5 id="1-3-5-图像平均"><a href="#1-3-5-图像平均" class="headerlink" title="1.3.5  图像平均"></a><strong>1.3.5  图像平均</strong></h5><p>图像平均操作是减少图像噪声的一种简单方式，通常用于艺术特效。我们可以简单地从图像列表中计算出一幅平均图像。假设所有的图像具有相同的大小，我们可以将这些图像简单地相加，然后除以图像的数目，来计算平均图像。下面的函数可以用于计算平均图像，将其添加到 imtool.py 文件里：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_average</span><span class="params">(imlist)</span>:</span></div><div class="line">    <span class="string">""" Compute the average of a list of images. """</span></div><div class="line">    <span class="comment"># open first image and make into array of type float</span></div><div class="line">    averageim = array(Image.open(imlist[<span class="number">0</span>]), ’f’)</div><div class="line">    <span class="keyword">for</span> imname <span class="keyword">in</span> imlist[<span class="number">1</span>:]:</div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            averageim += array(Image.open(imname))</div><div class="line">        <span class="keyword">except</span>:</div><div class="line">            <span class="keyword">print</span> imname + ’...skipped’</div><div class="line">    averageim /= len(imlist)</div><div class="line"></div><div class="line">    <span class="comment"># return average as uint8</span></div><div class="line">    <span class="keyword">return</span> array(averageim, ’uint8’)</div></pre></td></tr></table></figure></p>
+<p>该函数包括一些基本的异常处理技巧，可以自动跳过不能打开的图像。我们还可以使用 mean() 函数计算平均图像。mean()函数需要将所有的图像堆积到一个数组中；也就是说，如果有很多图像，该处理方式需要占用很多内存。我们将会在下一节中使用该函数。</p>
+<h5 id="1-3-6-图像主成分分析"><a href="#1-3-6-图像主成分分析" class="headerlink" title="1.3.6  图像主成分分析"></a><strong>1.3.6  图像主成分分析</strong></h5><p>PCA（Principal Component Analysis，主成分分析）是一个非常有用的降维技巧。它可以在使用尽可能少维数的前提下，尽量多地保持训练数据的信息，在此意义上是一个最佳技巧。即使是一幅 100×100 像素的小灰度图像，也有 10000 维，可以看成 10000 维空间中的一个点。一兆像素的图像具有百万维。由于图像具有很高的维数，在许多计算机视觉应用中，我们经常使用降维操作。PCA 产生的投影矩阵可以被视为将原始坐标变换到现有的坐标系，坐标系中的各个坐标按照重要性递减排列。<br>为了对图像数据进行 PCA 变换，图像需要转换成一维向量表示。我们可以使用 NumPy 类库中的 flatten() 方法进行变换。<br>将变平的图像堆积起来，我们可以得到一个矩阵，矩阵的一行表示一幅图像。在计算主方向之前，所有的行图像按照平均图像进行了中心化。我们通常使用 SVD（Singular Value Decomposition，奇异值分解）方法来计算主成分；但当矩阵的维数很大时，SVD 的计算非常慢，所以此时通常不使用 SVD 分解。下面就是 PCA 操作的代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">pca</span><span class="params">(X)</span>:</span></div><div class="line">    <span class="string">""" Principal Component Analysis</span></div><div class="line"><span class="string">    input: X, matrix with training data stored as flattened arrays in rows</span></div><div class="line"><span class="string">    return: projection matrix (with important dimensions first), variance and mean.</span></div><div class="line"><span class="string">    """</span></div><div class="line">    <span class="comment"># get dimensions</span></div><div class="line">    num_data,dim = X.shape</div><div class="line"></div><div class="line">    <span class="comment"># center data</span></div><div class="line">    mean_X = X.mean(axis=<span class="number">0</span>)</div><div class="line">    X = X - mean_X</div><div class="line"></div><div class="line">    <span class="keyword">if</span> dim&gt;num_data:</div><div class="line">        <span class="comment"># PCA - compact trick used</span></div><div class="line">        M = dot(X,X.T) <span class="comment"># covariance matrix</span></div><div class="line">        e,EV = linalg.eigh(M) <span class="comment"># eigenvalues and eigenvectors</span></div><div class="line">        tmp = dot(X.T,EV).T <span class="comment"># this is the compact trick</span></div><div class="line">        V = tmp[::<span class="number">-1</span>] <span class="comment"># reverse since last eigenvectors are the ones we want</span></div><div class="line">        S = sqrt(e)[::<span class="number">-1</span>] <span class="comment"># reverse since eigenvalues are in increasing order</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(V.shape[<span class="number">1</span>]):</div><div class="line">            V[:,i] /= S</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="comment"># PCA - SVD used</span></div><div class="line">        U,S,V = linalg.svd(X)</div><div class="line">        V = V[:num_data] <span class="comment"># only makes sense to return the first num_data</span></div><div class="line">    <span class="comment"># return the projection matrix, the variance and the mean</span></div><div class="line">    <span class="keyword">return</span> V,S,mean_X</div></pre></td></tr></table></figure></p>
+<p>该函数首先通过减去每一维的均值将数据中心化，然后计算协方差矩阵对应最大特征值的特征向量，此时可以使用简明的技巧或者 SVD 分解。这里我们使用了 range() 函数，该函数的输入参数为一个整数 n，函数返回整数 0…(n-1) 的一个列表。你也可以使用 arange() 函数来返回一个数组，或者使用 xrange() 函数返回一个产生器（可能会提升速度）。我们在本书中贯穿使用 range() 函数。</p>
+<p>如果数据个数小于向量的维数，我们不用 SVD 分解，而是计算维数更小的协方差矩阵 $XX^T$的特征向量。通过仅计算对应前 k（k 是降维后的维数）最大特征值的特征向量，可以使上面的 PCA 操作更快。由于篇幅所限，有兴趣的读者可以自行探索。矩阵 V 的每行向量都是正交的，并且包含了训练数据方差依次减少的坐标方向。</p>
+<p>我们接下来对字体图像进行 PCA 变换。fontimages.zip 文件包含采用不同字体的字符 a 的缩略图。所有的 2359 种字体可以免费下载。假定这些图像的名称保存在列表 imlist 中，跟之前的代码一起保存传在 pca.py 文件中，我们可以使用下面的脚本计算图像的主成分：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> pca</div><div class="line"></div><div class="line">im = array(Image.open(imlist[<span class="number">0</span>])) <span class="comment"># open one image to get size</span></div><div class="line">m,n = im.shape[<span class="number">0</span>:<span class="number">2</span>] <span class="comment"># get the size of the images</span></div><div class="line">imnbr = len(imlist) <span class="comment"># get the number of images</span></div><div class="line"></div><div class="line"><span class="comment"># create matrix to store all flattened images</span></div><div class="line">immatrix = array([array(Image.open(im)).flatten() <span class="keyword">for</span> im <span class="keyword">in</span> imlist],’f’)</div><div class="line"><span class="comment"># perform PCA</span></div><div class="line">V,S,immean = pca.pca(immatrix)</div><div class="line"></div><div class="line"><span class="comment"># show some images (mean and 7 first modes)</span></div><div class="line">figure()</div><div class="line">gray()</div><div class="line">subplot(<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>)</div><div class="line">imshow(immean.reshape(m,n))</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">    subplot(<span class="number">2</span>,<span class="number">4</span>,i+<span class="number">2</span>)</div><div class="line">    imshow(V[i].reshape(m,n))</div><div class="line"></div><div class="line">show()</div></pre></td></tr></table></figure></p>
+<p>注意，图像需要从一维表示重新转换成二维图像；可以使用 reshape() 函数。如图 1-8 所示，运行该例子会在一个绘图窗口中显示 8 个图像。这里我们使用了 PyLab 库的 subplot() 函数在一个窗口中放置多个图像。</p>
+<h5 id="1-3-7-使用pickle模块"><a href="#1-3-7-使用pickle模块" class="headerlink" title="1.3.7  使用pickle模块"></a><strong>1.3.7  使用pickle模块</strong></h5><p>如果想要保存一些结果或者数据以方便后续使用，Python 中的 pickle 模块非常有用。pickle 模块可以接受几乎所有的 Python 对象，并且将其转换成字符串表示，该过程叫做封装（pickling）。从字符串表示中重构该对象，称为拆封（unpickling）。这些字符串表示可以方便地存储和传输。<br>我们来看一个例子。假设想要保存上一节字体图像的平均图像和主成分，可以这样来完成：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># save mean and principal components</span></div><div class="line">f = open(’font_pca_modes.pkl’, ’wb’)</div><div class="line">pickle.dump(immean,f)</div><div class="line">pickle.dump(V,f)</div><div class="line">f.close()</div></pre></td></tr></table></figure></p>
+<p>在上述例子中，许多对象可以保存到同一个文件中。pickle 模块中有很多不同的协议可以生成 .pkl 文件；如果不确定的话，最好以二进制文件的形式读取和写入。在其他 Python 会话中载入数据，只需要如下使用 load() 方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># load mean and principal components</span></div><div class="line">f = open(’font_pca_modes.pkl’, ’rb’)</div><div class="line">immean = pickle.load(f)</div><div class="line">V = pickle.load(f)</div><div class="line">f.close()</div></pre></td></tr></table></figure></p>
+<p>注意，载入对象的顺序必须和先前保存的一样。Python 中有个用 C 语言写的优化版本，叫做 cpickle 模块，该模块和标准 pickle 模块完全兼容。关于 pickle 模块的更多内容，参见 pickle 模块文档页 <a href="http://docs.python.org/library/pickle.html。" target="_blank" rel="external">http://docs.python.org/library/pickle.html。</a><br>在本书接下来的章节中，我们将使用 with 语句处理文件的读写操作。这是 Python 2.5 引入的思想，可以自动打开和关闭文件（即使在文件打开时发生错误）。下面的例子使用 with() 来实现保存和载入操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># open file and save</span></div><div class="line"><span class="keyword">with</span> open(’font_pca_modes.pkl’, ’wb’) <span class="keyword">as</span> f:</div><div class="line">    pickle.dump(immean,f)</div><div class="line">    pickle.dump(V,f)</div></pre></td></tr></table></figure></p>
+<p>和<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># open file and load</span></div><div class="line"><span class="keyword">with</span> open(’font_pca_modes.pkl’, ’rb’) <span class="keyword">as</span> f:</div><div class="line">    immean = pickle.load(f)</div><div class="line">    V = pickle.load(f)</div></pre></td></tr></table></figure></p>
+<p>上面的例子乍看起来可能很奇怪，但 with() 确实是个很有用的思想。如果你不喜欢它，可以使用之前的 open 和 close 函数。<br>作为 pickle 的一种替代方式，NumPy内建读写文本文件的简单函数。如果数据中不包含复杂的数据结构，比如在一幅图像上点击的点列表，NumPy 的读写函数会很有用。保存一个数组 x 到文件中，可以使用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">savetxt(’test.txt’,x,’%i’)</div></pre></td></tr></table></figure></p>
+<p>最后一个参数表示应该使用整数格式。类似地，读取可以使用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x = loadtxt(’test.txt’)</div></pre></td></tr></table></figure></p>
+<p>你可以从在线文档 <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html" target="_blank" rel="external">http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html</a> 了解更多内容。<br>最后，NumPy 有专门用于保存和载入数组的函数。你可以在上面的在线文档里查看关于 save() 和 load() 的更多内容。</p>
+<h4 id="1-4-SciPy"><a href="#1-4-SciPy" class="headerlink" title="1.4 SciPy"></a><strong>1.4 SciPy</strong></h4><p>SciPy（<a href="http://scipy.org/）是建立在" target="_blank" rel="external">http://scipy.org/）是建立在</a> NumPy 基础上，用于数值运算的开源工具包。SciPy 提供很多高效的操作，可以实现数值积分、优化、统计、信号处理，以及对我们来说最重要的图像处理功能。接下来，本节会介绍 SciPy 中大量有用的模块。SciPy 是个开源工具包，可以从<a href="http://scipy.org/Download下载。" target="_blank" rel="external">http://scipy.org/Download下载。</a></p>
+<h5 id="1-4-1-图像模糊"><a href="#1-4-1-图像模糊" class="headerlink" title="1.4.1  图像模糊"></a><strong>1.4.1  图像模糊</strong></h5><p>图像的高斯模糊是非常经典的图像卷积例子。本质上，图像模糊就是将（灰度）图像 I 和一个高斯核进行卷积操作：<br>$I_σ$=$I$<em>$G_σ$<br>这里的$</em>$表述卷积操作，$G_σ$是标准差为σ的二维高斯核，定义为：</p>
+<p>高斯模糊通常是其他图像处理操作的一部分，比如图像插值操作、兴趣点计算以及很多其他应用。<br>SciPy 有用来做滤波操作的 scipy.ndimage.filters 模块。该模块使用快速一维分离的方式来计算卷积。你可以像下面这样来使用它：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> filters</div><div class="line"></div><div class="line">im = array(Image.open(’empire.jpg’).convert(’L’))</div><div class="line">im2 = filters.gaussian_filter(im,<span class="number">5</span>)</div></pre></td></tr></table></figure></p>
+<p>上面 guassian_filter() 函数的最后一个参数表示标准差。<br>图 1-9 显示了随着标准差的增加，一幅图像被模糊的程度。标准差越大，处理后的图像细节丢失越多。如果打算模糊一幅彩色图像，只需简单地对每一个颜色通道进行高斯模糊：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">im = array(Image.open(’empire.jpg’))</div><div class="line">im2 = zeros(im.shape)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">    im2[:,:,i] = filters.gaussian_filter(im[:,:,i],<span class="number">5</span>)</div><div class="line">im2 = uint8(im2)</div></pre></td></tr></table></figure></p>
+<p>在上面的脚本中，最后并不总是需要将图像转换成 uint8 格式，这里只是将像素值用八位来表示。我们也可以使用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">im2 = array(im2,’uint8’)</div></pre></td></tr></table></figure></p>
+<p>来完成转换。<br>关于该模块更多的内容以及不同参数的选择，请查看 <a href="http://docs.scipy.org/doc/scipy/reference/ndimage.html" target="_blank" rel="external">http://docs.scipy.org/doc/scipy/reference/ndimage.html</a> 上 SciPy 文档中的scipy.ndimage 部分。</p>
+<h5 id="1-4-2-图像导数"><a href="#1-4-2-图像导数" class="headerlink" title="1.4.2  图像导数"></a><strong>1.4.2  图像导数</strong></h5><p>整本书中可以看到，在很多应用中图像强度的变化情况是非常重要的信息。强度的变化可以用灰度图像 I（对于彩色图像，通常对每个颜色通道分别计算导数）的 x 和 y 方向导数$Ix$ 和 $Iy$ 进行描述。<br>图像的梯度向量为：$∇I=[I_x I_y]^T$。这个梯度有两个重要的属性，一个是梯度的大小：<br>$$|∇I|=√(I_x^2+I_y^2)$$<br>这个公式描述了图像强度变化的强弱，另一个是梯度的角度：$α=arctan2(I_y,I_x)$<br>描述了图像中在每个点（像素）上强度变化最大的方向。NumPy函数arctan2()函数返回弧度表示的有符号角度，角度的变化区间为[-π,π]。<br>我们可以用离散近似的方式来计算图像的导数。图像导数大多数可以通过卷积简单地实现：$Ix=I<em>Dx$ 和 $Iy=I</em>Dy$，对于$Dx$和$Dy$，通常选择Prewitt滤波器。<br>这些导数滤波器可以使用 scipy.ndimage.filters 模块的标准卷积操作来简单地实现，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> filters</div><div class="line"></div><div class="line">im = array(Image.open(’empire.jpg’).convert(’L’))</div><div class="line"><span class="comment">#Sobel derivative filters</span></div><div class="line">imx = zeros(im.shape)</div><div class="line">filters.sobel(im,<span class="number">1</span>,imx)</div><div class="line"></div><div class="line">imy = zeros(im.shape)</div><div class="line">filters.sobel(im,<span class="number">0</span>,imy)</div><div class="line"></div><div class="line">magnitude = sqrt(imx**<span class="number">2</span>+imy**<span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<p>上面的脚本使用 Sobel 滤波器来计算 x 和 y 的方向导数，以及梯度大小。sobel() 函数的第二个参数表示选择 x 或者 y 方向导数，第三个参数保存输出的变量。图 1-10 显示了用 Sobel 滤波器计算出的导数图像。在两个导数图像中，正导数显示为亮的像素，负导数显示为暗的像素。灰色区域表示导数的值接近于零。</p>
+<p>上述计算图像导数的方法有一些缺陷：在该方法中，滤波器的尺度需要随着图像分辨率的变化而变化。为了在图像噪声方面更稳健，以及在任意尺度上计算导数，我们可以使用高斯导数滤波器：</p>
+<p>其中，$Gσx$和 $Gσy$ 表示 $Gσ$ 在 x 和 y 方向上的导数，$Gσ$ 为标准差为 σ 的高斯函数。</p>
+<p>我们之前用于模糊的 filters.gaussian_filter() 函数可以接受额外的参数，用来计算高斯导数。可以简单地按照下面的方式来处理：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sigma = <span class="number">5</span> <span class="comment">#standard deviation</span></div><div class="line">imx = zeros(im.shape)</div><div class="line">filters.gaussian_filter(im, (sigma,sigma), (<span class="number">0</span>,<span class="number">1</span>), imx)</div><div class="line"></div><div class="line">imy = zeros(im.shape)</div><div class="line">filters.gaussian_filter(im, (sigma,sigma), (<span class="number">1</span>,<span class="number">0</span>), imy)</div></pre></td></tr></table></figure></p>
+<p>该函数的第三个参数指定对每个方向计算哪种类型的导数，第二个参数为使用的标准差。你可以查看相应文档了解详情。图 1-11 显示了不同尺度下的导数图像和梯度大小。你可以和图 1-9 中做相同尺度模糊的图像做比较。</p>
+<h5 id="1-4-3-形态-对象计数"><a href="#1-4-3-形态-对象计数" class="headerlink" title="1.4.3  形态-对象计数"></a><strong>1.4.3  形态-对象计数</strong></h5><p>形态学（或数学形态学）是度量和分析基本形状的图像处理方法的基本框架与集合。形态学通常用于处理二值图像，但是也能够用于灰度图像。二值图像是指图像的每个像素只能取两个值，通常是 0 和 1。二值图像通常是，在计算物体的数目，或者度量其大小时，对一幅图像进行阈值化后的结果。你可以从 <a href="http://en.wikipedia.org/wiki/Mathematical_morphology大体了解形态学及其处理图像的方式。" target="_blank" rel="external">http://en.wikipedia.org/wiki/Mathematical_morphology大体了解形态学及其处理图像的方式。</a><br>scipy.ndimage 中的 morphology 模块可以实现形态学操作。你可以使用 scipy.ndimage 中的 measurements 模块来实现二值图像的计数和度量功能。下面通过一个简单的例子介绍如何使用它们。<br>考虑在图 1-12a里的二值图像，计算该图像中的对象个数可以通过下面的脚本实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> measurements,morphology</div><div class="line"><span class="comment"># load image and threshold to make sure it is binary</span></div><div class="line">im = array(Image.open(’houses.png’).convert(’L’))</div><div class="line">im = <span class="number">1</span>*(im&lt;<span class="number">128</span>)</div><div class="line"></div><div class="line">labels, nbr_objects = measurements.label(im)</div><div class="line"><span class="keyword">print</span> <span class="string">"Number of objects:"</span>, nbr_objects</div></pre></td></tr></table></figure></p>
+<p>上面的脚本首先载入该图像，通过阈值化方式来确保该图像是二值图像。通过和 1 相乘，脚本将布尔数组转换成二进制表示（这里面得到的灰度图像像素值分布在0-255之间，通过判断是否小于128得到一个布尔数组）。然后，我们使用 label() 函数寻找单个的物体，并且按照它们属于哪个对象将整数标签给像素赋值。图 1-12b 是 labels 数组的图像。图像的灰度值表示对象的标签。可以看到，在一些对象之间有一些小的连接。进行二进制开（binary open）操作，我们可以将其移除：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># morphology - opening to separate objects better</span></div><div class="line">im_open = morphology.binary_opening(im,ones((<span class="number">9</span>,<span class="number">5</span>)),iterations=<span class="number">2</span>)</div><div class="line"></div><div class="line">labels_open, nbr_objects_open = measurements.label(im_open)</div><div class="line"><span class="keyword">print</span> <span class="string">"Number of objects:"</span>, nbr_objects_open</div></pre></td></tr></table></figure></p>
+<p>binary_opening() 函数的第二个参数指定一个数组结构元素。该数组表示以一个像素为中心时，使用哪些相邻像素。在这种情况下，我们在 y 方向上使用 9 个像素（上面 4 个像素、像素本身、下面 4 个像素），在 x 方向上使用 5 个像素。你可以指定任意数组为结构元素，数组中的非零元素决定使用哪些相邻像素。参数 iterations 决定执行该操作的次数。你可以尝试使用不同的迭代次数 iterations 值，看一下对象的数目如何变化。你可以在图 1-12c 与图 1-12d 中查看经过开操作后的图像，以及相应的标签图像。正如你想象的一样，binary_closing() 函数实现相反的操作。我们将该函数和在 morphology 和 measurements 模块中的其他函数的用法留作练习。你可以从 scipy.ndimage 模块文档 <a href="http://docs.scipy.org/doc/scipy/reference/ndimage.html" target="_blank" rel="external">http://docs.scipy.org/doc/scipy/reference/ndimage.html</a> 中了解关于这些函数的更多知识。</p>
+<h5 id="1-4-4-有用的SciPy模块"><a href="#1-4-4-有用的SciPy模块" class="headerlink" title="1.4.4  有用的SciPy模块"></a><strong>1.4.4  有用的SciPy模块</strong></h5><p>SciPy 中包含一些用于输入和输出的实用模块。下面介绍其中两个模块：io 和 misc。</p>
+<p><strong>01.读写.mat文件</strong><br>如果你有一些数据，或者在网上下载到一些有趣的数据集，这些数据以 Matlab 的 .mat 文件格式存储，那么可以使用 scipy.io 模块进行读取。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data = scipy.io.loadmat(’test.mat’)</div></pre></td></tr></table></figure></p>
+<p>上面代码中，data 对象包含一个字典，字典中的键对应于保存在原始 .mat 文件中的变量名。由于这些变量是数组格式的，因此可以很方便地保存到 .mat 文件中。你仅需创建一个字典（其中要包含你想要保存的所有变量），然后使用 savemat() 函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">data = &#123;&#125;</div><div class="line">data[’x’] = x</div><div class="line">scipy.io.savemat(’test.mat’,data)</div></pre></td></tr></table></figure></p>
+<p>因为上面的脚本保存的是数组 x，所以当读入到 Matlab 中时，变量的名字仍为 x。关于 scipy.io 模块的更多内容，请参见在线文档 <a href="http://docs.scipy.org/doc/scipy/reference/io.html。" target="_blank" rel="external">http://docs.scipy.org/doc/scipy/reference/io.html。</a></p>
+<p><strong>02.以图像形式保存数组</strong><br>因为我们需要对图像进行操作，并且需要使用数组对象来做运算，所以将数组直接保存为图像文件非常有用。本书中的很多图像都是这样的创建的。</p>
+<p>imsave() 函数可以从 scipy.misc 模块中载入。要将数组 im 保存到文件中，可以使用下面的命令：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> scipy.misc</div><div class="line">scipy.misc.imsave(’test.jpg’,im)</div></pre></td></tr></table></figure></p>
+<p>scipy.misc 模块同样包含了著名的 Lena 测试图像：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lena = scipy.misc.lena()</div></pre></td></tr></table></figure></p>
+<p>该脚本将返回一个512*512灰度数组图像。</p>
+<h4 id="1-5-高级示例：图像降噪"><a href="#1-5-高级示例：图像降噪" class="headerlink" title="1.5  高级示例：图像降噪"></a><strong>1.5  高级示例：图像降噪</strong></h4><p>我们通过一个非常实用的例子–图像的去噪–来结束本章。图像去噪是在去除图像噪声的同时，尽可能地保留图像细节和结构的处理技术。我们这里使用 ROF（Rudin-Osher-Fatemi）去噪模型。该模型最早出现在文献 [28] 中。图像去噪对于很多应用来说都非常重要；这些应用范围很广，小到让你的假期照片看起来更漂亮，大到提高卫星图像的质量。ROF 模型具有很好的性质：使处理后的图像更平滑，同时保持图像边缘和结构信息。</p>
+<p>ROF 模型的数学基础和处理技巧非常高深，不在本书讲述范围之内。在讲述如何基于 Chambolle 提出的算法 [5] 实现 ROF 求解器之前，本书首先简要介绍一下 ROF 模型。</p>
+<p>一幅（灰度）图像 I 的全变差（Total Variation，TV）定义为梯度范数之和。在连续表示的情况下，全变差表示为：</p>
+<p>在离散集中，总变差是：</p>
+<p>其中，上面的式子是在所有图像坐标 x=[x, y] 上取和。</p>
+<p>在 Chambolle 提出的 ROF 模型里，目标函数为寻找降噪后的图像 U，使下式最小：</p>
+<p>其中范数 $||I-U||$ 是去噪后图像 U 和原始图像 I 差异的度量。也就是说，本质上该模型使去噪后的图像像素值“平坦”变化，但是在图像区域的边缘上，允许去噪后的图像像素值“跳跃”变化。<br>按照论文 [5] 中的算法，我们可以按照下面的代码实现 ROF 模型去噪：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">denoise</span><span class="params">(im,U_init,tolerance=<span class="number">0.1</span>,tau=<span class="number">0.125</span>,tv_weight=<span class="number">100</span>)</span>:</span></div><div class="line">    <span class="string">""" An implementation of the Rudin-Osher-Fatemi (ROF) denoising model</span></div><div class="line"><span class="string">        using the numerical procedure presented in eq (11) A. Chambolle (2005).</span></div><div class="line"><span class="string">        </span></div><div class="line"><span class="string">        Input: noisy input image (grayscale), initial guess for U, weight of</span></div><div class="line"><span class="string">        the TV-regularizing term, steplength, tolerance for stop criterion.</span></div><div class="line"><span class="string">        </span></div><div class="line"><span class="string">        Output: denoised and detextured image, texture residual. </span></div><div class="line"><span class="string">    """</span></div><div class="line">        </div><div class="line">    m,n = im.shape <span class="comment">#size of noisy image</span></div><div class="line"></div><div class="line">    <span class="comment"># initialize</span></div><div class="line">    U = U_init</div><div class="line">    Px = im <span class="comment">#x-component to the dual field</span></div><div class="line">    Py = im <span class="comment">#y-component of the dual field</span></div><div class="line">    error = <span class="number">1</span></div><div class="line"></div><div class="line">    <span class="keyword">while</span> (error &gt; tolerance):</div><div class="line">        Uold = U</div><div class="line"></div><div class="line">        <span class="comment"># gradient of primal variable</span></div><div class="line">        GradUx = roll(U,<span class="number">-1</span>,axis=<span class="number">1</span>)-U <span class="comment"># x-component of U’s gradient</span></div><div class="line">        GradUy = roll(U,<span class="number">-1</span>,axis=<span class="number">0</span>)-U <span class="comment"># y-component of U’s gradient</span></div><div class="line"></div><div class="line">        <span class="comment"># update the dual varible</span></div><div class="line">        PxNew = Px + (tau/tv_weight)*GradUx</div><div class="line">        PyNew = Py + (tau/tv_weight)*GradUy</div><div class="line">        NormNew = maximum(<span class="number">1</span>,sqrt(PxNew**<span class="number">2</span>+PyNew**<span class="number">2</span>))</div><div class="line"></div><div class="line">        Px = PxNew/NormNew <span class="comment"># update of x-component (dual)</span></div><div class="line">        Py = PyNew/NormNew <span class="comment"># update of y-component (dual)</span></div><div class="line"></div><div class="line">        <span class="comment"># update the primal variable</span></div><div class="line">        RxPx = roll(Px,<span class="number">1</span>,axis=<span class="number">1</span>) <span class="comment"># right x-translation of x-component</span></div><div class="line">        RyPy = roll(Py,<span class="number">1</span>,axis=<span class="number">0</span>) <span class="comment"># right y-translation of y-component</span></div><div class="line"></div><div class="line">        DivP = (Px-RxPx)+(Py-RyPy) <span class="comment"># divergence of the dual field.</span></div><div class="line">        U = im + tv_weight*DivP <span class="comment"># update of the primal variable</span></div><div class="line"></div><div class="line">        <span class="comment"># update of error</span></div><div class="line">        error = linalg.norm(U-Uold)/sqrt(n*m)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> U,im-U <span class="comment"># denoised image and texture residual</span></div></pre></td></tr></table></figure></p>
+<p>在这个例子中，我们使用了 roll() 函数。顾名思义，在一个坐标轴上，它循环“滚动”数组中的元素值。该函数可以非常方便地计算邻域元素的差异，比如这里的导数。我们还使用了 linalg.norm() 函数，该函数可以衡量两个数组间（这个例子中是指图像矩阵 U和 Uold）的差异。我们将这个 denoise() 函数保存到 rof.py 文件中。<br>下面使用一个合成的噪声图像示例来说明如何使用该函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</div><div class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> filters</div><div class="line"><span class="keyword">import</span> rof</div><div class="line"></div><div class="line"><span class="comment"># create synthetic image with noise</span></div><div class="line">im = zeros((<span class="number">500</span>,<span class="number">500</span>))</div><div class="line">im[<span class="number">100</span>:<span class="number">400</span>,<span class="number">100</span>:<span class="number">400</span>] = <span class="number">128</span></div><div class="line">im[<span class="number">200</span>:<span class="number">300</span>,<span class="number">200</span>:<span class="number">300</span>] = <span class="number">255</span></div><div class="line">im = im + <span class="number">30</span>*random.standard_normal((<span class="number">500</span>,<span class="number">500</span>))</div><div class="line"></div><div class="line">U,T = rof.denoise(im,im)</div><div class="line">G = filters.gaussian_filter(im,<span class="number">10</span>)</div><div class="line"></div><div class="line"><span class="comment"># save the result</span></div><div class="line"><span class="keyword">import</span> scipy.misc</div><div class="line">scipy.misc.imsave(’synth_rof.pdf’,U)</div><div class="line">scipy.misc.imsave(’synth_gaussian.pdf’,G)</div></pre></td></tr></table></figure></p>
+<p>原始图像和图像的去噪结果如图 1-13 所示。正如你所看到的，ROF 算法去噪后的图像很好地保留了图像的边缘信息。<br>下面看一下在实际图像中使用 ROF 模型去噪的效果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">from</span> pylab <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> rof</div><div class="line"></div><div class="line">im = array(Image.open(’empire.jpg’).convert(’L’))</div><div class="line">U,T = rof.denoise(im,im)</div><div class="line"></div><div class="line">figure()</div><div class="line">gray()</div><div class="line">imshow(U)</div><div class="line">axis(’equal’)</div><div class="line">axis(’off’)</div><div class="line">show()</div></pre></td></tr></table></figure></p>
+<p>经过 ROF 去噪后的图像如图 1-14c 所示。为了方便比较，该图中同样显示了模糊后的图像。可以看到，ROF 去噪后的图像保留了边缘和图像的结构信息，同时模糊了“噪声”。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PIL/" rel="tag"># PIL</a>
+          
+            <a href="/tags/图像处理/" rel="tag"># 图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/13/前言/" rel="next" title="前言">
+                <i class="fa fa-chevron-left"></i> 前言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.gif"
+              alt="zongcheng zuo" />
+          
+            <p class="site-author-name" itemprop="name">zongcheng zuo</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zongchengzuo" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zongchengzuo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-图像操作和处理"><span class="nav-number">1.</span> <span class="nav-text">第一章 图像操作和处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-PIL"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 PIL</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-转换图像格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1  转换图像格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-创建缩略图"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2  创建缩略图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-复制和粘贴区域"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3  复制和粘贴区域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-4-调整尺寸和旋转"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4  调整尺寸和旋转</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Matplotlib"><span class="nav-number">1.2.</span> <span class="nav-text">1.2  Matplotlib</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-绘制图像、点和线"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1  绘制图像、点和线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-图像轮廓和直方图"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2  图像轮廓和直方图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-3-交互式标记"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3  交互式标记</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-NumPy"><span class="nav-number">1.3.</span> <span class="nav-text">1.3  NumPy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-图像数组表示"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1  图像数组表示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-灰度变换"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2  灰度变换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-图像尺寸"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3  图像尺寸</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-4-直方图均衡化"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4  直方图均衡化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-5-图像平均"><span class="nav-number">1.3.5.</span> <span class="nav-text">1.3.5  图像平均</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-6-图像主成分分析"><span class="nav-number">1.3.6.</span> <span class="nav-text">1.3.6  图像主成分分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-7-使用pickle模块"><span class="nav-number">1.3.7.</span> <span class="nav-text">1.3.7  使用pickle模块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-SciPy"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 SciPy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-图像模糊"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.4.1  图像模糊</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-图像导数"><span class="nav-number">1.4.2.</span> <span class="nav-text">1.4.2  图像导数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-形态-对象计数"><span class="nav-number">1.4.3.</span> <span class="nav-text">1.4.3  形态-对象计数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-4-有用的SciPy模块"><span class="nav-number">1.4.4.</span> <span class="nav-text">1.4.4  有用的SciPy模块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-高级示例：图像降噪"><span class="nav-number">1.5.</span> <span class="nav-text">1.5  高级示例：图像降噪</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zongcheng zuo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="https://hexo.io">Hexo</a></div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
